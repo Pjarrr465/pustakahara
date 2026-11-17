@@ -1,66 +1,55 @@
 import 'package:flutter/material.dart';
-
 import '../models/book.dart';
 import '../theme/app_colors.dart';
+import 'book_cover.dart';
 
 class BookCard extends StatelessWidget {
   final Book book;
-  const BookCard({super.key, required this.book});
+  final VoidCallback? onTap;
+
+  const BookCard({super.key, required this.book, this.onTap});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(10),
-      decoration: BoxDecoration(
-        color: Colors.white,
+    return Material(
+      color: Colors.white,
+      elevation: 1.5,
+      shadowColor: const Color(0x33000000),
+      clipBehavior: Clip.antiAlias,
+      shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: AppColors.border),
-        boxShadow: const [
-          BoxShadow(
-            color: Color(0x14000000),
-            blurRadius: 6,
-            offset: Offset(0, 2),
-          ),
-        ],
+        side: const BorderSide(color: AppColors.border),
       ),
-      child: Column(
-        children: [
-          Expanded(
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(4),
-              child: book.image != null
-                  ? Image.asset(book.image!, fit: BoxFit.cover, width: 90)
-                  : Container(
-                      width: 90,
-                      color: book.color,
-                      alignment: Alignment.center,
-                      padding: const EdgeInsets.all(6),
-                      child: Text(
-                        book.title,
-                        textAlign: TextAlign.center,
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w700,
-                          fontSize: 12,
-                        ),
-                      ),
-                    ),
-            ),
+      child: InkWell(
+        onTap: onTap,
+        child: Padding(
+          padding: const EdgeInsets.all(10),
+          child: Column(
+            children: [
+              Expanded(
+                child: Center(
+                  child: AspectRatio(
+                    aspectRatio: 0.68,
+                    child: BookCover(book: book),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 8),
+              Text(
+                book.title,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: const TextStyle(fontSize: 11, fontWeight: FontWeight.w600),
+              ),
+              Text(
+                book.author,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: const TextStyle(fontSize: 10, color: AppColors.text),
+              ),
+            ],
           ),
-          const SizedBox(height: 8),
-          Text(
-            book.title,
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-            style: const TextStyle(fontSize: 11, fontWeight: FontWeight.w600),
-          ),
-          Text(
-            book.author,
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-            style: const TextStyle(fontSize: 10, color: AppColors.text),
-          ),
-        ],
+        ),
       ),
     );
   }

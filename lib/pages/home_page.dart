@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../models/book.dart';
 import '../theme/app_colors.dart';
 import '../widgets/book_card.dart';
+import '../widgets/book_detail_dialog.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -49,7 +50,10 @@ class _HomePageState extends State<HomePage> {
                 mainAxisSpacing: 12,
                 childAspectRatio: 0.72,
               ),
-              itemBuilder: (_, i) => BookCard(book: books[i]),
+              itemBuilder: (_, i) => BookCard(
+                book: books[i],
+                onTap: () => showBookDetail(context, books[i]),
+              ),
             ),
           ),
         ],

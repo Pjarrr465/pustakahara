@@ -21,8 +21,8 @@ class AppBottomNav extends StatelessWidget {
 
   static const _items = [
     _NavItem(Icons.home_rounded, 'Beranda'),
-    _NavItem(Icons.local_library_rounded, 'Koleksi'),
-    _NavItem(Icons.menu_book_rounded, 'Pinjaman'),
+    _NavItem(Icons.library_books_rounded, 'Rak'),
+    _NavItem(Icons.book_rounded, 'Buku'),
     _NavItem(Icons.person_rounded, 'Profil'),
   ];
 

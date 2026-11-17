@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 
 import '../widgets/app_bottom_nav.dart';
+import 'buku_page.dart';
 import 'home_page.dart';
 import 'profile_page.dart';
+import 'rak_page.dart';
 
 /// Kerangka utama setelah login: 4 tab + bottom nav
 class MainShell extends StatefulWidget {
@@ -20,11 +22,11 @@ class _MainShellState extends State<MainShell> {
     return Scaffold(
       body: IndexedStack(
         index: _index,
-        children: const [
-          HomePage(),
-          _Placeholder('Koleksi'),
-          _Placeholder('Pinjaman'),
-          ProfilePage(),
+        children: [
+          const HomePage(),
+          const RakPage(),
+          BukuPage(onOpenRak: () => setState(() => _index = 1)),
+          const ProfilePage(),
         ],
       ),
       bottomNavigationBar: AppBottomNav(
@@ -33,13 +35,4 @@ class _MainShellState extends State<MainShell> {
       ),
     );
   }
-}
-
-class _Placeholder extends StatelessWidget {
-  final String name;
-  const _Placeholder(this.name);
-
-  @override
-  Widget build(BuildContext context) =>
-      Center(child: Text('Halaman $name (belum dibuat)'));
 }
